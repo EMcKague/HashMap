@@ -197,6 +197,8 @@ class HashMap:
         # remove key at given location 
         self._buckets[location].remove(key)
 
+        self.size -= 1
+
     def contains_key(self, key):
         """
         Searches to see if a key exists within the hash table
@@ -264,7 +266,7 @@ class HashMap:
                 while pointer.next:
                     self.put(pointer.key, pointer.value)
                     temp = pointer.next
-                    pointer.remove()
+                    bucket.remove(pointer.key)
                     pointer = temp
         return
 
