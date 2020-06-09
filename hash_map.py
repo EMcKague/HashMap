@@ -280,17 +280,19 @@ class HashMap:
     
         return index
 
-    def sortedList(self):
-        descending_values = {}
+    def sorted_tup(self):
+        descending_values = []
         for bucket in self._buckets:
+            # checks if bucket is empty
             if bucket.head:
                 cur = bucket.head
                 while cur.next:
-                    descending_values.update({cur.key: cur.value})
+                    descending_values.append((cur.key, cur.value))
                     cur = cur.next
-                descending_values.update({cur.key: cur.value})
-
-        return sorted(descending_values)
+                descending_values.append((cur.key, cur.value))
+        # print("unsorted", descending_values)
+        # print("sorted", sorted(descending_values))
+        return sorted(descending_values, key=lambda x: float(x[1]), reverse=True)
 
 # if __name__ == "__main__":
 

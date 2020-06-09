@@ -52,11 +52,15 @@ def top_words(source, number):
             for w in words:
                 location = ht.create_hash(w)
                 if ht._buckets[location].contains(w):
+                    # print("Current value:", ht._buckets[location].contains(w).value)
                     ht._buckets[location].contains(w).value = ht._buckets[location].contains(w).value + 1
+                    # print("New value:", ht._buckets[location].contains(w).value)
                 else: 
                     ht.put(w, 1)
 
-                return ht.sortedList()
+        tup = ht.sorted_tup()
+
+        return tup[:number]
 
 
 print(top_words("alice.txt",10))  # COMMENT THIS OUT WHEN SUBMITTING TO GRADESCOPE
