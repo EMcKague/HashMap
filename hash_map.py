@@ -147,16 +147,19 @@ class HashMap:
             self.capacity = capacity
             # rehash
             self.rehash()
+            print("capcity:", self.capacity)
 
         else:
             # change capcity
-            amtToAdd = capacity - self.capacity
+            amt_to_add = capacity - self.capacity
             self.capacity = capacity
             # increase bucket size
-            for i in range(amtToAdd):
+            for i in range(amt_to_add):
                 self._buckets.append(LinkedList())
             # rehash
             self.rehash()
+            print("capcity:", self.capacity)
+
 
     def put(self, key, value):
         """
