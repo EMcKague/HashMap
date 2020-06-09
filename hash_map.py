@@ -282,7 +282,7 @@ class HashMap:
 
     def sortedList(self):
         descending_values = {}
-        for i in self._buckets:
+        for bucket in self._buckets:
             if bucket.head:
                 cur = bucket.head
                 while cur.next:
@@ -290,9 +290,9 @@ class HashMap:
                     cur = cur.next
                 descending_values.update({cur.key: cur.value})
 
-        return sort(descending_values)
+        return sorted(descending_values)
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
 
     # print("EMPTY BUCKETS - EXAMPLE ONE")
     # m = HashMap(100, hash_function_1)
