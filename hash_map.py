@@ -268,6 +268,8 @@ class HashMap:
                     temp = pointer.next
                     bucket.remove(pointer.key)
                     pointer = temp
+                self.put(pointer.key, pointer.value)
+                bucket.remove(pointer.key)
         return
 
     def create_hash(self, key):
