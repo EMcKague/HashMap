@@ -50,10 +50,9 @@ def top_words(source, number):
         for line in f:
             words = rgx.findall(line)
             for w in words:
-                location = ht.create_hash(w)
-                if ht._buckets[location].contains(w):
+                if ht.contains_key(w):
                     # print("Current value:", ht._buckets[location].contains(w).value)
-                    ht._buckets[location].contains(w).value = ht._buckets[location].contains(w).value + 1
+                    ht.put(w, ht.get(w) + 1)
                     # print("New value:", ht._buckets[location].contains(w).value)
                 else: 
                     ht.put(w, 1)
