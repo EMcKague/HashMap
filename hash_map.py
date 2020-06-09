@@ -280,6 +280,18 @@ class HashMap:
     
         return index
 
+    def sortedList(self):
+        descending_values = {}
+        for i in self._buckets:
+            if bucket.head:
+                cur = bucket.head
+                while cur.next:
+                    descending_values.update({cur.key: cur.value})
+                    cur = cur.next
+                descending_values.update({cur.key: cur.value})
+
+        return sort(descending_values)
+
 if __name__ == "__main__":
 
     # print("EMPTY BUCKETS - EXAMPLE ONE")
@@ -472,4 +484,3 @@ if __name__ == "__main__":
     # print(284, 2840, 'True')
     # print(285, 'None', 'False')
     # print("-----------")
-
