@@ -147,7 +147,7 @@ class HashMap:
             self.capacity = capacity
             # rehash
             self.rehash()
-            print("capcity:", self.capacity)
+            print("capcity:", self.capacity, "size:", self.size)
 
         else:
             # change capcity
@@ -158,7 +158,7 @@ class HashMap:
                 self._buckets.append(LinkedList())
             # rehash
             self.rehash()
-            print("capcity:", self.capacity)
+            print("capcity:", self.capacity, "size:", self.size)
 
 
     def put(self, key, value):
@@ -221,10 +221,11 @@ class HashMap:
         Returns:
             The number of empty buckets in the table
         """
+        print("empty buckets called")
         i = 0
         for bucket in self._buckets:
             # print(bucket)
-            if bucket.head == None:
+            if not bucket.head:
                 i += 1
         return i
 
