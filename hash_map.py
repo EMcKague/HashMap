@@ -180,7 +180,6 @@ class HashMap:
 
         # checks if given key already exists at given index and updates value if it does
         if self._buckets[index].contains(key):
-            print('test')
             self._buckets[index].contains(key).value = value
             # print("ending size:", self.size)
             return
@@ -203,12 +202,16 @@ class HashMap:
         # hash the key to find the bucket
         location = self.create_hash(key)
 
-        # remove key at given location 
-        self._buckets[location].remove(key)
+        # remove key at given location
+        if self._buckets[location].contains(key):
+            self._buckets[location].remove(key)
+            self.size -= 1
+            return
+        # if key doesn't exist, return
+        else:
+            return
 
-        self.size -= 1
-
-        # print("capcity:", self.capacity, "size:", self.size)
+        # print("capcity:", self.capacity, "size:", self.size, "empty buckets", self.empty_buckets())
 
     def contains_key(self, key):
         """
@@ -304,32 +307,10 @@ class HashMap:
         Returns:
             An index for the given key
         """
-        index = self._hash_function(key)
-        index = index % self.capacity
+        # index = self._hash_function(key)
+        index = self._hash_function(key) % self.capacity
     
         return index
-
-    def rehash_put(self, key, value):
-        """
-        Updates the given key-value pair in the hash table. If a link with the given
-        key already exists, this will just update the value and skip traversing. Otherwise,
-        it will create a new link with the given key and value and add it to the table
-        bucket's linked list. Does not increase size of hash
-
-        Args:
-            key: they key to use to has the entry
-            value: the value associated with the entry
-        """
-
-        index = self.create_hash(key)
-
-        if self._buckets[index].contains(key):
-            self._buckets[index].contains(key).value = value
-            return
-
-        else:
-            self._buckets[index].add_front(key, value)
-            return
 
     def sorted_tup(self):
         descending_values = []
@@ -574,4 +555,19 @@ class HashMap:
     # print(813, True, 77, 813, 0.09)
     # print(930, True, 77, 930, 0.08)
     # print("-----------")
+
+    # print('REMOVE - EXAMPLE ONE')
+    # m = HashMap(50, hash_function_1)
+    # print(m.get('key1'))
+    # m.put('key1', 10)
+    # print(m.get('key1'))
+    # m.remove('key1')
+    # print(m.get('key1'))
+    # m.remove('key4')
+    # print("CORRECT OUTPUT")
+    # print(None)
+    # print(10)
+    # print(None)
+    # print("-----------")
+
 
