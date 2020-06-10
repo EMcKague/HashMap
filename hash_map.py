@@ -313,18 +313,17 @@ class HashMap:
         return index
 
     def sorted_tup(self):
-        descending_values = []
+        tup = []
         for bucket in self._buckets:
             # checks if bucket is empty
             if bucket.head:
                 cur = bucket.head
-                while cur.next:
-                    descending_values.append((cur.key, cur.value))
+                while cur is not None:
+                    tup.append((cur.key, cur.value))
                     cur = cur.next
-                descending_values.append((cur.key, cur.value))
         # print("unsorted", descending_values)
         # print("sorted", sorted(descending_values))
-        return sorted(descending_values, key=lambda x: float(x[1]), reverse=True)
+        return sorted(tup, key=lambda x: float(x[1]), reverse=True)
 
 # if __name__ == "__main__":
 
