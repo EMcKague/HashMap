@@ -308,7 +308,7 @@ class HashMap:
                     tup.append((cur.key, cur.value))
                     cur = cur.next
         # print("unsorted", descending_values)
-        print(sorted(tup, key=lambda x: float(x[1]), reverse=True))
+        # print(sorted(tup, key=lambda x: float(x[1]), reverse=True))
         return sorted(tup, key=lambda x: float(x[1]), reverse=True)
 
 # if __name__ == "__main__":

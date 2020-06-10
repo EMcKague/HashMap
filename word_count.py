@@ -52,7 +52,7 @@ def top_words(source, number):
             for w in words:
                 if ht.contains_key(w.lower()):
                     # print("Current value:", ht._buckets[location].contains(w).value)
-                    ht.put(w, ht.get(w.lower()) + 1)
+                    ht.put(w.lower(), ht.get(w.lower()) + 1)
                     # print("New value:", ht._buckets[location].contains(w).value)
                 else: 
                     ht.put(w.lower(), 1)
