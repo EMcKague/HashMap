@@ -141,16 +141,18 @@ class HashMap:
         Args:
             capacity: the new number of buckets.
         """
+        # print("Resize table called, capacity:", capacity)
+
         # check if downsizing 
         if self.capacity > capacity:
-            # change capcity
+            # change capacity
             self.capacity = capacity
             # rehash
             self.rehash()
-            # print("capcity:", self.capacity, "size:", self.size)
+            # print("capacity:", self.capacity, "size:", self.size)
 
         else:
-            # change capcity
+            # change capacity
             amt_to_add = capacity - self.capacity
             self.capacity = capacity
             # increase bucket size
@@ -158,7 +160,7 @@ class HashMap:
                 self._buckets.append(LinkedList())
             # rehash
             self.rehash()
-            # print("capcity:", self.capacity, "size:", self.size)
+            # print("capcity:", self.capacity, "size:", self.size, "empty buckets:", self.empty_buckets(), )
 
     def put(self, key, value):
         """
@@ -178,6 +180,7 @@ class HashMap:
 
         # checks if given key already exists at given index and updates value if it does
         if self._buckets[index].contains(key):
+            print('test')
             self._buckets[index].contains(key).value = value
             # print("ending size:", self.size)
             return
@@ -267,16 +270,31 @@ class HashMap:
         return out
 
     def rehash(self):
+        rehashed = []
         for bucket in self._buckets:
             if bucket.head:
-                pointer = bucket.head
-                while pointer.next:
-                    self.rehash_put(pointer.key, pointer.value)
-                    temp = pointer.next
-                    bucket.remove(pointer.key)
-                    pointer = temp
-                self.rehash_put(pointer.key, pointer.value)
-                bucket.remove(pointer.key)
+                cur = bucket.head
+                while cur is not None:
+                    # print("Appending: (", cur.key, cur.value, ")")
+                    rehashed.append((cur.key, cur.value))
+                    bucket.remove(cur.key)
+                    cur = cur.next
+
+                # while cur:
+                #     print("Appending: (", pointer.key, pointer.value, ")")
+                #     rehashed.append((pointer.key, pointer.value))
+                #     if not pointer.next:
+                #         bucket.remove(pointer.key)
+                #         pointer.next = None
+                #     else:
+                #         temp = pointer.next
+                #         bucket.remove(pointer.key)
+                #         pointer = temp
+        self.size = 0
+        # print("Rehashed:", rehashed)
+        for el in rehashed:
+            # print("key:", el[0], "value", el[1])
+            self.put(el[0], el[1])
         return
 
     def create_hash(self, key):
@@ -521,3 +539,39 @@ class HashMap:
     # print(284, 2840, 'True')
     # print(285, 'None', 'False')
     # print("-----------")
+
+    # print("RESIZE - EXAMPLE ONE")
+    # m = HashMap(20, hash_function_1)
+    # m.put('key1', 10)
+    # print(m.size, m.capacity, m.get('key1'), m.contains_key('key1'))
+    # m.resize_table(30)
+    # print(m.size, m.capacity, m.get('key1'), m.contains_key('key1'))
+    # print("CORRECT OUTPUT")
+    # print(1, 20, 10, True)
+    # print(1, 30, 10, True)
+    # print("-----------")
+    # print("RESIZE - EXAMPLE TWO")
+    # m = HashMap(75, hash_function_2)
+    # keys = [i for i in range(1, 1000, 13)]
+    # for key in keys:
+    #     m.put(str(key), key * 42)
+    # print(m.size, m.capacity)
+    # for capacity in range(111, 1000, 117):
+    #     m.resize_table(capacity)
+    #     result = True
+    #     for key in keys:
+    #         result = result and m.contains_key(str(key))
+    #         result = result and not m.contains_key(str(key + 1))
+    #     print(capacity, result, m.size, m.capacity, round(m.table_load(), 2))
+    # print("CORRECT OUTPUT")
+    # print(77, 75)
+    # print(111, True, 77, 111, 0.69)
+    # print(228, True, 77, 228, 0.34)
+    # print(345, True, 77, 345, 0.22)
+    # print(462, True, 77, 462, 0.17)
+    # print(579, True, 77, 579, 0.13)
+    # print(696, True, 77, 696, 0.11)
+    # print(813, True, 77, 813, 0.09)
+    # print(930, True, 77, 930, 0.08)
+    # print("-----------")
+
