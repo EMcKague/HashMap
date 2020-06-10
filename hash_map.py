@@ -147,7 +147,7 @@ class HashMap:
             self.capacity = capacity
             # rehash
             self.rehash()
-            print("capcity:", self.capacity, "size:", self.size)
+            # print("capcity:", self.capacity, "size:", self.size)
 
         else:
             # change capcity
@@ -158,8 +158,7 @@ class HashMap:
                 self._buckets.append(LinkedList())
             # rehash
             self.rehash()
-            print("capcity:", self.capacity, "size:", self.size)
-
+            # print("capcity:", self.capacity, "size:", self.size)
 
     def put(self, key, value):
         """
@@ -171,20 +170,24 @@ class HashMap:
         Args:
             key: they key to use to has the entry
             value: the value associated with the entry
-        """ 
+        """
+        # print("put was called, starting size:", self.size)
+
         # creates an index by running key through the hash function
         index = self.create_hash(key)
 
         # checks if given key already exists at given index and updates value if it does
         if self._buckets[index].contains(key):
             self._buckets[index].contains(key).value = value
-            return True
+            # print("ending size:", self.size)
+            return
         
         # adds the value to given index's linked list
         else:
             self._buckets[index].add_front(key, value)
             self.size += 1
-            return True
+            # print("ending size:", self.size)
+            return
 
     def remove(self, key):
         """
@@ -201,6 +204,8 @@ class HashMap:
         self._buckets[location].remove(key)
 
         self.size -= 1
+
+        # print("capcity:", self.capacity, "size:", self.size)
 
     def contains_key(self, key):
         """
@@ -221,10 +226,8 @@ class HashMap:
         Returns:
             The number of empty buckets in the table
         """
-        print("empty buckets called")
         i = 0
         for bucket in self._buckets:
-            # print(bucket)
             if not bucket.head:
                 i += 1
         return i
@@ -268,11 +271,11 @@ class HashMap:
             if bucket.head:
                 pointer = bucket.head
                 while pointer.next:
-                    self.put(pointer.key, pointer.value)
+                    self.rehash_put(pointer.key, pointer.value)
                     temp = pointer.next
                     bucket.remove(pointer.key)
                     pointer = temp
-                self.put(pointer.key, pointer.value)
+                self.rehash_put(pointer.key, pointer.value)
                 bucket.remove(pointer.key)
         return
 
@@ -287,6 +290,28 @@ class HashMap:
         index = index % self.capacity
     
         return index
+
+    def rehash_put(self, key, value):
+        """
+        Updates the given key-value pair in the hash table. If a link with the given
+        key already exists, this will just update the value and skip traversing. Otherwise,
+        it will create a new link with the given key and value and add it to the table
+        bucket's linked list. Does not increase size of hash
+
+        Args:
+            key: they key to use to has the entry
+            value: the value associated with the entry
+        """
+
+        index = self.create_hash(key)
+
+        if self._buckets[index].contains(key):
+            self._buckets[index].contains(key).value = value
+            return
+
+        else:
+            self._buckets[index].add_front(key, value)
+            return
 
     def sorted_tup(self):
         descending_values = []
@@ -407,11 +432,13 @@ class HashMap:
     # print(2, 100)
     # print(0, 100)
     # print("-----------")
+
     # print("CLEAR - EXAMPLE TWO")
     # m = HashMap(50, hash_function_1)
     # print(m.size, m.capacity)
     # m.put('key1', 10)
     # print(m.size, m.capacity)
+    # print("putting key2, 20")
     # m.put('key2', 20)
     # print(m.size, m.capacity)
     # m.resize_table(100)
