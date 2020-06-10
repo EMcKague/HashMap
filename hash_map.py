@@ -3,6 +3,10 @@
 # Implement a hash map with chaining
 # ===================================================
 
+# Evan McKague
+# CS290
+# Assignment 5 - Hash Tables
+
 class SLNode:
     def __init__(self, key, value):
         self.next = None
@@ -141,7 +145,6 @@ class HashMap:
         Args:
             capacity: the new number of buckets.
         """
-        # print("Resize table called, capacity:", capacity)
 
         # check if downsizing 
         if self.capacity > capacity:
@@ -149,7 +152,6 @@ class HashMap:
             self.capacity = capacity
             # rehash
             self.rehash()
-            # print("capacity:", self.capacity, "size:", self.size)
 
         else:
             # change capacity
@@ -160,7 +162,6 @@ class HashMap:
                 self._buckets.append(LinkedList())
             # rehash
             self.rehash()
-            # print("capcity:", self.capacity, "size:", self.size, "empty buckets:", self.empty_buckets(), )
 
     def put(self, key, value):
         """
@@ -173,7 +174,6 @@ class HashMap:
             key: they key to use to has the entry
             value: the value associated with the entry
         """
-        # print("put was called, starting size:", self.size)
 
         # creates an index by running key through the hash function
         index = self.create_hash(key)
@@ -181,14 +181,12 @@ class HashMap:
         # checks if given key already exists at given index and updates value if it does
         if self._buckets[index].contains(key):
             self._buckets[index].contains(key).value = value
-            # print("ending size:", self.size)
             return
         
         # adds the value to given index's linked list
         else:
             self._buckets[index].add_front(key, value)
             self.size += 1
-            # print("ending size:", self.size)
             return
 
     def remove(self, key):
@@ -211,7 +209,6 @@ class HashMap:
         else:
             return
 
-        # print("capcity:", self.capacity, "size:", self.size, "empty buckets", self.empty_buckets())
 
     def contains_key(self, key):
         """
@@ -257,7 +254,6 @@ class HashMap:
                 i += 1
             total += i
 
-        # print("total:", total)
         return total / self.capacity
 
     def __str__(self):
@@ -307,8 +303,7 @@ class HashMap:
                 while cur is not None:
                     tup.append((cur.key, cur.value))
                     cur = cur.next
-        # print("unsorted", descending_values)
-        # print(sorted(tup, key=lambda x: float(x[1]), reverse=True))
+
         return sorted(tup, key=lambda x: float(x[1]), reverse=True)
 
 # if __name__ == "__main__":

@@ -5,6 +5,9 @@
 # counter will return the top X words, as indicated
 # by the user.
 # ===================================================
+# Evan McKague
+# CS290
+# Assignment 5 - Hash Tables
 
 import re
 from hash_map import HashMap
@@ -51,15 +54,10 @@ def top_words(source, number):
             words = rgx.findall(line)
             for w in words:
                 if ht.contains_key(w.lower()):
-                    # print("Current value:", ht._buckets[location].contains(w).value)
                     ht.put(w.lower(), ht.get(w.lower()) + 1)
-                    # print("New value:", ht._buckets[location].contains(w).value)
-                else: 
+                else:
                     ht.put(w.lower(), 1)
 
         tup = ht.sorted_tup()
 
         return tup[:number]
-
-
-# print(top_words("alice.txt", 10))  # COMMENT THIS OUT WHEN SUBMITTING TO GRADESCOPE
