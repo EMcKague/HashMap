@@ -50,16 +50,16 @@ def top_words(source, number):
         for line in f:
             words = rgx.findall(line)
             for w in words:
-                if ht.contains_key(w):
+                if ht.contains_key(w.lower()):
                     # print("Current value:", ht._buckets[location].contains(w).value)
-                    ht.put(w, ht.get(w) + 1)
+                    ht.put(w, ht.get(w.lower()) + 1)
                     # print("New value:", ht._buckets[location].contains(w).value)
                 else: 
-                    ht.put(w, 1)
+                    ht.put(w.lower(), 1)
 
         tup = ht.sorted_tup()
 
         return tup[:number]
 
 
-#print(top_words("alice.txt", 10))  # COMMENT THIS OUT WHEN SUBMITTING TO GRADESCOPE
+# print(top_words("alice.txt", 10))  # COMMENT THIS OUT WHEN SUBMITTING TO GRADESCOPE

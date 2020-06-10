@@ -278,25 +278,12 @@ class HashMap:
             if bucket.head:
                 cur = bucket.head
                 while cur is not None:
-                    # print("Appending: (", cur.key, cur.value, ")")
                     rehashed.append((cur.key, cur.value))
                     bucket.remove(cur.key)
                     cur = cur.next
 
-                # while cur:
-                #     print("Appending: (", pointer.key, pointer.value, ")")
-                #     rehashed.append((pointer.key, pointer.value))
-                #     if not pointer.next:
-                #         bucket.remove(pointer.key)
-                #         pointer.next = None
-                #     else:
-                #         temp = pointer.next
-                #         bucket.remove(pointer.key)
-                #         pointer = temp
         self.size = 0
-        # print("Rehashed:", rehashed)
         for el in rehashed:
-            # print("key:", el[0], "value", el[1])
             self.put(el[0], el[1])
         return
 
@@ -315,14 +302,13 @@ class HashMap:
     def sorted_tup(self):
         tup = []
         for bucket in self._buckets:
-            # checks if bucket is empty
             if bucket.head:
                 cur = bucket.head
                 while cur is not None:
                     tup.append((cur.key, cur.value))
                     cur = cur.next
         # print("unsorted", descending_values)
-        # print("sorted", sorted(descending_values))
+        print(sorted(tup, key=lambda x: float(x[1]), reverse=True))
         return sorted(tup, key=lambda x: float(x[1]), reverse=True)
 
 # if __name__ == "__main__":
